@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Name Spinner</title>
+  <style>
+    /* Styles for the spinning effect */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #wheel {
+      width: 200px;
+      height: 200px;
+      border: 5px solid #ccc;
+      border-radius: 50%;
+      animation: spin 3s ease-out 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Earthlings and Angels Name Picker</h1>
+  <p>Click the button to randomly pick a name:</p>
+
+  <!-- Replace the button with a div representing the spinning wheel -->
+  <div id="wheel" onclick="spin()"></div>
+
+  <ul id="namesList">
+    <!-- Names will be added here -->
+  </ul>
+
+  <script>
+    let names = ["Deborah", "Natasha", "Nicole", "Elizabeth", "Nikita", "Nathanial", "Nathan", "Nathius"]; // Add your list of names here
+    let removedNames = [];
+
+    function spin() {
+      if (names.length > 0) {
+        const randomIndex = Math.floor(Math.random() * names.length);
+        const selectedName = names[randomIndex];
+
+        removedNames.push(names.splice(randomIndex, 1)[0]);
+
+        displayNames(selectedName);
+
+        // Disable wheel after a spin
+        document.getElementById('wheel').style.pointerEvents = 'none';
+        document.getElementById('wheel').style.animation = 'none';
+        setTimeout(function() {
+          document.getElementById('wheel').style.pointerEvents = 'auto';
+          document.getElementById('wheel').style.animation = 'spin 3s ease-out 1';
+        }, 3000);
+      } else {
+        alert("All names have been picked!");
+      }
+    }
+
+    function displayNames(selectedName) {
+      const namesList = document.getElementById('namesList');
+      const listItem = document.createElement('li');
+      listItem.appendChild(document.createTextNode(selectedName));
+      namesList.appendChild(listItem);
+    }
+  </script>
+
+</body>
+</html>

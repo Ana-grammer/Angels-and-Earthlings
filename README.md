@@ -2,66 +2,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dynamic Name Spinner</title>
+  <title>Colorful Spin Wheel</title>
   <style>
-    /* Styles for the spinning effect */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
     }
+
     #wheel {
-      width: 200px;
-      height: 200px;
-      border: 5px solid #ccc;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
-      animation: spin 3s ease-out 1;
+      background-image: conic-gradient(#ff6f61, #ffa41b, #ffd500, #4caf50, #2196f3, #9c27b0, #ff6f61);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: white;
+      pointer-events: none;
+    }
+
+    #spinButton {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h1>Earthlings and Angels Name Picker</h1>
-  <p>Click the button to randomly pick a name:</p>
-
-  <!-- Replace the button with a div representing the spinning wheel -->
-  <div id="wheel" onclick="spin()"></div>
-
-  <ul id="namesList">
-    <!-- Names will be added here -->
-  </ul>
+  <div id="wheel">
+    <div id="hand">👉</div>
+  </div>
+  
+  <button id="spinButton" onclick="spinWheel()">Spin</button>
 
   <script>
-    let names = ["Deborah", "Natasha", "Nicole", "Elizabeth", "Nikita", "Nathanial", "Nathan", "Nathius"]; // Add your list of names here
-    let removedNames = [];
+    const names = ["Deborah", "Natasha", "Nicole", "Elizabeth", "Nikita", "Nathanial", "Nathan", "Nathius"]; // Add your list of names here
+    const wheel = document.getElementById('wheel');
+    const hand = document.getElementById('hand');
 
-    function spin() {
+    function spinWheel() {
       if (names.length > 0) {
         const randomIndex = Math.floor(Math.random() * names.length);
         const selectedName = names[randomIndex];
 
-        removedNames.push(names.splice(randomIndex, 1)[0]);
+        // Display selected name
+        hand.textContent = selectedName;
 
-        displayNames(selectedName);
-
-        // Disable wheel after a spin
-        document.getElementById('wheel').style.pointerEvents = 'none';
-        document.getElementById('wheel').style.animation = 'none';
-        setTimeout(function() {
-          document.getElementById('wheel').style.pointerEvents = 'auto';
-          document.getElementById('wheel').style.animation = 'spin 3s ease-out 1';
-        }, 3000);
+        // Remove selected name from the list
+        names.splice(randomIndex, 1);
       } else {
         alert("All names have been picked!");
       }
     }
-
-    function displayNames(selectedName) {
-      const namesList = document.getElementById('namesList');
-      const listItem = document.createElement('li');
-      listItem.appendChild(document.createTextNode(selectedName));
-      namesList.appendChild(listItem);
-    }
   </script>
 
 </body>
-</html>
+</html> 

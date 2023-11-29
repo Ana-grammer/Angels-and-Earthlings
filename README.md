@@ -59,13 +59,14 @@
   <button id="spinButton" onclick="spinWheel()">Spin</button>
 
   <script>
+    let isSpun = false; // Variable to track if wheel is already spun
     const names = ["Deborah", "Natasha", "Nicole", "Elizabeth", "Nikita", "Nathanial", "Nathan", "Nathius"]; // Add your list of names here
     const wheel = document.getElementById('wheel');
     const hand = document.getElementById('hand');
     const spinButton = document.getElementById('spinButton');
 
     function spinWheel() {
-      if (names.length > 0) {
+      if (!isSpun && names.length > 0) {
         // Disable spin button during animation
         spinButton.disabled = true;
 
@@ -86,7 +87,9 @@
           spinButton.disabled = false;
           wheel.style.animation = '';
         }, 5000); // 5 seconds
-      } else {
+
+        isSpun = true; // Set to true after spinning
+      } else if (names.length === 0) {
         alert("All names have been picked!");
       }
     }
@@ -94,4 +97,6 @@
 
 </body>
 </html>
-   
+
+    
+    

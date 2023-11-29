@@ -4,6 +4,7 @@
 <head>
   <title>Colorful Spin Wheel</title>
   <style>
+    /* Styles for the spinning wheel and hand */
     body {
       display: flex;
       justify-content: center;
@@ -20,6 +21,12 @@
       background-image: conic-gradient(#ff6f61, #ffa41b, #ffd500, #4caf50, #2196f3, #9c27b0, #ff6f61);
       position: relative;
       overflow: hidden;
+      animation: spinWheel 5s ease-out forwards; /* Animation for spinning wheel */
+    }
+
+    @keyframes spinWheel {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(720deg); } /* Change the number of degrees for desired rotations */
     }
 
     #hand {
@@ -55,17 +62,30 @@
     const names = ["Deborah", "Natasha", "Nicole", "Elizabeth", "Nikita", "Nathanial", "Nathan", "Nathius"]; // Add your list of names here
     const wheel = document.getElementById('wheel');
     const hand = document.getElementById('hand');
+    const spinButton = document.getElementById('spinButton');
 
     function spinWheel() {
       if (names.length > 0) {
-        const randomIndex = Math.floor(Math.random() * names.length);
-        const selectedName = names[randomIndex];
+        // Disable spin button during animation
+        spinButton.disabled = true;
 
-        // Display selected name
-        hand.textContent = selectedName;
+        // Trigger the spinning animation
+        wheel.style.animation = 'spinWheel 5s ease-out forwards';
 
-        // Remove selected name from the list
-        names.splice(randomIndex, 1);
+        setTimeout(function() {
+          const randomIndex = Math.floor(Math.random() * names.length);
+          const selectedName = names[randomIndex];
+
+          // Display selected name
+          hand.textContent = selectedName;
+
+          // Remove selected name from the list
+          names.splice(randomIndex, 1);
+
+          // Enable spin button after animation and reset wheel animation
+          spinButton.disabled = false;
+          wheel.style.animation = '';
+        }, 5000); // 5 seconds
       } else {
         alert("All names have been picked!");
       }
@@ -73,4 +93,5 @@
   </script>
 
 </body>
-</html> 
+</html>
+   

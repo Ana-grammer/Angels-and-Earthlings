@@ -21,7 +21,7 @@
       background-image: conic-gradient(#ff6f61, #ffa41b, #ffd500, #4caf50, #2196f3, #9c27b0, #ff6f61);
       position: relative;
       overflow: hidden;
-      animation: spinWheel 5s ease-out forwards; /* Animation for spinning wheel */
+      animation: spinWheel 3s ease-out forwards; /* Animation for spinning wheel */
     }
 
     @keyframes spinWheel {
@@ -71,7 +71,7 @@
         spinButton.disabled = true;
 
         // Trigger the spinning animation
-        wheel.style.animation = 'spinWheel 5s ease-out forwards';
+        wheel.style.animation = 'spinWheel 3s ease-out forwards';
 
         setTimeout(function() {
           const randomIndex = Math.floor(Math.random() * names.length);
@@ -86,7 +86,7 @@
           // Enable spin button after animation and reset wheel animation
           spinButton.disabled = false;
           wheel.style.animation = '';
-        }, 5000); // 5 seconds
+        }, 5000); // 3 seconds
 
         isSpun = true; // Set to true after spinning
       } else if (names.length === 0) {
